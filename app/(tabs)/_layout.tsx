@@ -6,13 +6,28 @@ import { Pressable } from 'react-native';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import { Entypo, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
+function EntypoTabBarIcon(props: {
+  name: React.ComponentProps<typeof Entypo>['name'];
   color: string;
 }) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+  return <Entypo size={28} style={{ marginBottom: -3 }} {...props} />;
+}
+
+function IoniconsTabBarIcon(props: {
+  name: React.ComponentProps<typeof Ionicons>['name'];
+  color: string;
+}) {
+  return <Ionicons size={28} style={{ marginBottom: -3 }} {...props} />;
+}
+
+function MaterialCommunityTabBarIcon(props: {
+  name: React.ComponentProps<typeof MaterialCommunityIcons>['name'];
+  color: string;
+}) {
+  return <MaterialCommunityIcons size={28} style={{ marginBottom: -3 }} {...props} />;
 }
 
 export default function TabLayout() {
@@ -29,14 +44,14 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Popular',
+          tabBarIcon: ({ color }) => <EntypoTabBarIcon name="eye" color={color} />,
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
-                    name="info-circle"
+                    name="search"
                     size={25}
                     color={Colors[colorScheme ?? 'light'].text}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
@@ -48,12 +63,30 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="thekeep/index"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'The Keep',
+          tabBarIcon: ({ color }) => <IoniconsTabBarIcon name="book" color={color} />,
         }}
       />
+
+      <Tabs.Screen
+        name="mylibrary/index"
+        options={{
+          title: 'My Library',
+          tabBarIcon: ({ color }) => <IoniconsTabBarIcon name='library' color={color} />,
+        }}
+      />
+
+<Tabs.Screen
+        name="profile/index"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color }) => <MaterialCommunityTabBarIcon name="face-man-profile" color='grey' />,
+        }}
+      />
+
     </Tabs>
+    
   );
 }
